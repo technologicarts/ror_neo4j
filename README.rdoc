@@ -1,67 +1,76 @@
-== README
+環境構築手順
 
-git clone https://github.com/takabes00/ta-shoppingsite.git
+事前準備
+  ruby 2.1.2p95
+  Rails 4.1.8
+  git version 1.8.1.2
+  ※gem installで上記rubyとrails、gitのバージョンを準備していること
 
-cd ta-shoppingsite
+①アプリケーションを保存するディレクトリでgit cloneを実施する
 
-rbenv local 2.2.0
+  git clone https://github.com/technologicarts/ror_neo4j.git
 
-gem install bundler
+②ror_neo4j/dbフォルダにta_custom.dicを追加する。
 
-bundle install --path vendor/bundler
+  ※ta_custom.dicはmecab用のディレクトリですがgithubの1ファイル上限（100MB）を超えているため
+  Githubにpushできないため
 
-bundle exec rake db:create
+③ディレクトリの移動
 
-bundle exec rake db:schema:load
+  cd ror_neo4j
 
-bundle exec rake db:migrate
+④Rubyのバージョンの変更
+  rbenv local 2.2.0
 
-* Ruby version
+⑤bundleのインストール
+  sudo gem install bundle
 
-* System dependencies
+⑥ライブラリのインストール
+bundle install --path vendor/bundle
 
-* Configuration
+⑦データベースのリストア
+  mysqlのインストール
+  ror_production
+  ror_development
+  ror_test
+  のデータベースを作成
+  それぞれにtashoppingsite_newdic.sqlをリストア
 
-* Database creation
+    データベースはバックアップからのリストアで対応するため、下記の通常手順は削除。
+    ## bundle exec rake db:create
+    ## bundle exec rake db:schema:load
+    ## bundle exec rake db:migrate
 
-* Database initialization
+⑧Neo4jの起動
+  neo4jがインストールされていなければcommunity版をインストールすること
+  neo4j:start
 
-* How to run the test suite
+⑨ror_neo4jのWebアプリケーションの起動
+  bundle exec rails s 
+　
+　ブラウザでlocalhost:3000にアクセス
 
-* Services (job queues, cache servers, search engines, etc.)
+※以下は参考レベル
+Mecabの設定が古いため、起動エラーとなるため、下記手順は一時的に無視してください。
+また、Gemfileからnattoをコメントアウト
+Macでの構築手順は次の①〜⑤
 
-* Deployment instructions
+①Setup Mecab:
+  brew install mecab
+  brew install mecab-ipadic
 
-
-= Setup Mecab:
-== Centos 7:
-=== Groongaレポジトリ追加
-  $ sudo rpm -ivh http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm
-
-=== mecab本体と辞書ファイルをインストール
-  $ sudo yum install mecab mecab-ipadic
-
-=== nattoをインストール
-  $ gem install natto
-
-
-=== libmecab.soの場所を探す
+②libmecab.soの場所を探す
 $ sudo find / -name libmecab.so*
   /usr/lib/libmecab.so.2
   /usr/lib/libmecab.so.2.0.0
 
-=== libmecab.soにパスを通す (The path to libmecab.so* depending on your local Environment)
+③libmecab.soにパスを通す (The path to libmecab.so* depending on your local Environment)
   $ echo 'export MECAB_PATH=/usr/lib/libmecab.so.2' >> ~/.bash_profile
   $ source ~/.bash_profile
 
-=== Add configuration in RubyApplication/config/boot.rb
+④ Add configuration in RubyApplication/config/boot.rb
   ENV['MECAB_PATH']='/usr/lib/libmecab.so.2'
 
-=== Add Gem in RubyApplication/Gemfile
+⑤ Add Gem in RubyApplication/Gemfile
   gem 'ffi', '~> 1.9.8'
   gem 'natto', '~>1.0.0'
-
-
-== Reference
-http://qiita.com/xkumiyu/items/50e449235985ca1b0271
-
