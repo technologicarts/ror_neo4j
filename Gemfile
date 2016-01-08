@@ -41,5 +41,5 @@ gem 'spree', github: 'spree/spree', branch: '2-3-stable'
 # gem 'debugger', group: [:development, :test]
 
 gem 'ffi', '~> 1.9.8'
-gem 'natto', '~> 1.0.0'
+# gem 'natto', '~> 1.0.0'　一時的にコメントアウト
 gem 'devise'
