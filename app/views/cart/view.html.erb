@@ -1,0 +1,120 @@
+<div id="main">
+	<div id="contents02">
+		<!--パンくずナビ-->
+		<nav id="breadcrumb">
+			<div class="item first" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+				<a href="/" itemprop="url"><span class="title" itemprop="title">ホーム</span></a>&gt;
+			</div>
+			<div class="item" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+				<span class="title" itemprop="title">ショッピングカート</span>
+			</div>
+		</nav>
+		<!--/パンくずナビ-->
+		<section id="A004001">
+			<div name="secure_cartActionForm">
+
+				<div id="inner">
+					<h2>ショッピングカート</h2>
+					<p>現在カートに入っている商品一覧です。内容をご確認の上、「ご注文手続きへ」にお進みください。</p>
+
+					<table class="cart-items">
+						<tbody>
+						<tr>
+							<th class="title" colspan="3">
+								<span class="inner">現在カートに入っている商品</span>
+							</th>
+						</tr>
+						<tr>
+							<th class="caption">商品</th>
+							<th class="caption">単価(税込)／別配送料(税込)／数量</th>
+							<th class="caption">発送予定日／別配送・ラッピング</th>
+							<!-- <th class="caption">削除</th> -->
+						</tr>
+
+					<% if @items.empty? %>
+						<tr>
+							<td colspan="3"><p class="no_item">カートに商品が入っていません。</p></td>
+						</tr>
+					<% end %>
+
+					<% @items.each do |item| %>
+
+						<tr>
+							<td><p class="no_item"><%= item.mpn %> / <%= item.item_name %></p></td>
+							<td><p class="no_item"><%= item.list_price %> / 0 / <%= item.qty %></p></td>
+							<td><p class="no_item"></p></td>
+							<!-- <td><p class="no_item"></p></td> -->
+						</tr>
+
+					<% end %>
+
+
+
+					</tbody></table>
+					<!--cart-->
+
+
+					<!-- ecサイト分ループ -->
+
+					<div class="cart-bottom">
+						<div class="left-container">
+							<div class="delivery-text">
+								1回のご注文金額が<em>5,400円(税抜5,000円)以上</em>で全国無料配送です。
+								<em>5,400円(税抜5,000円)未満</em>の場合、送料421円(税抜390円)を申し受けます。<br>
+								返品不可の商品を除き、商品到着後15日以内は返品を承ります。<br>
+								返品・交換について<a href="/st/guides/03/">詳しくはこちら</a>
+							</div>
+
+						</div>
+						<div class="right-container">
+							<table class="invoice">
+								<tbody><tr>
+									<th>合計価格(税込)</th>
+									<td><%= @total_price.to_i %>円</td>
+								</tr>
+								<tr>
+									<th>合計別配送料(税込)</th>
+									<td>0円</td>
+								</tr>
+								<tr>
+									<th>送料(税込)</th>
+									<td><%= (@total_price.to_i * 0.1).to_i %>円</td>
+								</tr>
+								<tr>
+									<th>別配送料値引き</th>
+									<td>0円</td>
+								</tr>
+								<tr>
+									<th>送料値引き</th>
+									<td><span class="price-down">0</span>円</td>
+								</tr>
+								<tr>
+									<th>合計数量</th>
+									<td>0点</td>
+								</tr>
+								<tr>
+									<th>総合計(税込)</th>
+									<td class="totalPrice"><span class="total"><%= (@total_price.to_i * 1.1).to_i %></span>円</td>
+								</tr>
+							</tbody></table>
+						</div>
+					</div>
+					<!--priceDetail-->
+
+
+					<hr>
+					<div class="nav-btn">
+						<table>
+							<tbody><tr>
+								<td><a href="/"><p class="btn-gray">トップページへ戻る</p></a> &nbsp;&nbsp;&nbsp;&nbsp; </td>
+
+								<td>&nbsp;&nbsp;&nbsp;</td>
+							</tr>
+						</tbody></table>
+					</div>
+				</div>
+				<!--Inner-->
+			</div>
+		</section>
+	</div>
+</div>

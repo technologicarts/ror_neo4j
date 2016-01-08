@@ -1,0 +1,235 @@
+<script type="text/javascript">
+function addCart()
+{
+  document.getElementById("myform").submit();
+}
+</script>
+
+<%= provide(:title, "イマージュネット | スキッパーシャツ - オフホワイト") %>
+
+<!--パンくずナビ-->
+<nav id="breadcrumb">
+    <div class="item first" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a href="/">
+            <span class="title" itemprop="title">ホーム</span>
+        </a>
+    </div>
+
+    <div class="item" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+
+        <% @category_href = "/category" %>
+
+    <% @categories.each do |cat| %>
+        <% @category_href += "/" + cat.category_id.to_s %>
+        &nbsp;&gt;&nbsp;<a href="<%= @category_href %>"> <%=raw cat.category_name.gsub('<br/>','') %> </a>
+
+    <% end %>
+
+        &nbsp;&gt;&nbsp;
+        <span class="title" itemprop="title"><%= @item.item_name %></span>
+    </div>
+</nav>
+<section id="A002004">
+    <div id="contents">
+        <div id="right-container">
+            <div class="item-outline">
+
+                <h2 class="title"><%= @item.item_name %></h2>
+                <div id="DetailPrice">
+                    <!-- ■ 価格情報：通常 -->
+                    <p class="price-retail">販売価格
+                        <em class="price">
+                            <!-- 3.877円（税込） -->
+                            <%= @item.list_price %>円（税込）
+                        </em>
+                    </p>
+                    <!-- // #DetailPrice -->
+                </div>
+            </div>
+            <!-- ■ 付加情報 -->
+            <!-- 組み合わせてお得 -->
+
+
+            <%= form_tag "/add_item_to_cart", :id => "myform" do %> 
+
+                <input type="hidden" name="itemid" value=<%= @item.mpn %>>
+                <div class="purchase-container box-container-gray">
+                    <p class="select">
+                        <label for="colorCode">カラー</label>
+                        <select name="colorcd" class="colorcd">
+                            <!-- option value="">カラーを選択して下さい</option-->
+                            <option value="<%= @item.color %>" selected="selected"><%= @item.color %></option>
+                        </select>
+                    </p>
+                    <p class="select">
+                        <label for="sizeCode">サイズ</label>
+                        <select name="sizecd">
+                            <option class="sizestart" value="start">サイズを選択して下さい</option>
+                            <option class="063" value="<%= @item.item_size %>"><%= @item.item_size %></option>
+                            
+                        </select>
+                        <select name="sizecdclone" style="display:none;">
+                            <option class="sizestart" value="start">サイズを選択して下さい</option>
+                            <option class="063" value="<%= @item.item_size %>"><%= @item.item_size %></option>
+                            
+                        </select>
+                    </p>
+                    <p class="select">
+                        <label for="qty">数量</label>
+                        <!-- <input name="itemcount" type="text" style="width:25px;" value= "<%= @item.qty %>" maxlength="3"></input> -->
+
+
+                        <%= number_field_tag 'qty', @item.qty %>
+                    </p>
+
+                    <div class="message stock-alert">
+                        <h3 class="message-title">
+                            <span data-field="priceText" class="stock-msg-price"></span>
+                        </h3>
+                        <h3 class="message-title">
+                            <span data-field="statusText"></span>
+                        </h3>
+                        <p class="message-text"></p>
+                        <!--在庫確認時にサーバから返されるメッセージを表示-->
+                    </div>
+
+                    <a href="javascript:void(0)" onclick="addCart()" >
+                        <p class="btn-cart">
+                            <span>カートに入れる</span>
+                        </p>
+                    </a>
+
+                    <a href="/favorite/add/<%= @item.mpn %>" class="link-favorite" onclick="addFav(null)">
+                        <p class="btn-favorite">
+                            <span>お気に入りに追加</span>
+                        </p>
+                    </a>
+                </div>
+
+       <% end %>
+
+            <div class="item-info">
+                <h3 class="sub-title">
+    <%=  image_tag "title_itemdetail_info.png" %>
+
+                </h3>
+                <p class="description"><%= @item.item_info.html_safe %></p>
+
+            </div>
+            <!--スペック-->
+            <div class="item-spec">
+                <h3 class="sub-title">
+                    <%=  image_tag "title_itemdetail_spec.png" %>
+                </h3>
+                <table class="item-spec-table">
+                    <tr>
+                        <th>商品名</th>
+                        <td>
+                            <strong>
+                                <div class="title"> <%= @item.item_name %></div>
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>商品情報</th>
+                        <td>
+                        <%= @item.detailed_item_info.html_safe %>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>品番</th>
+                        <td><%= @item.mpn %></td>
+                    </tr>
+                </table>
+                <!--/スペック-->
+            </div>
+
+        </div>
+        <div id="left-container">
+
+            <!-- ■メイン画像 -->
+            <div class="pic-large">
+
+                <a href="/assets/img/<%= @item.item_image %>" rel="itemPicLink" title="スキッパーシャツ" data-caption="オフホワイト  シンプルを格上げする上品スキッパー" class="lightbox-pic cboxElement">
+                   
+                    <%= image_tag "img/" << @item.item_image, class:"thumbnail", width:"377", height:"377", alt:"オフホワイトシンプルを格上げする上品スキッパー" %>
+
+                </a>
+            </div>
+
+        </div>
+
+        <div id="bottom-container">
+
+        </div>
+    </div>
+
+</section>
+
+<footer>
+
+    <h3 class="checked-items-title">
+    <%=  image_tag "title_checked-items.png", alt:"最近チェックした商品", width:"980", height:"30"  %>
+    </h3>
+    <div class="recommend-items">
+        <ul class="container">
+
+        <% @items.each do |item| %>
+
+            <li class="item">
+                <!-- デバグ:22044 -->
+                <p class="image">
+                    <a href="/item/<%= item.mpn %>/detail">
+                        <img src="/assets/img/<%= item.item_image %>" width="130" height="130" alt="" />
+                    </a>
+                </p>
+                <p class="name">
+                    <a href="/item/<%= item.mpn %>/detail"><%= item.item_name %></a>
+                </p>
+                <p class="price"><%= item.list_price %>円（税込）(<%= item.clicked_count %>*)</p>
+            </li>
+
+        <%  end %>
+        </ul>
+    </div>
+
+    <h3 class="checked-items-title">
+    <%=  image_tag "title_search_items.png", alt:"キーワード検索", width:"980", height:"30"  %>
+    </h3>
+
+    <div class="recommend-items">
+
+
+<%= form_tag "../../item/search" do %> 
+
+    <!-- <form method="post" action="../../../search"> -->
+        <input type="hidden" name="itemid" value=<%= @item.mpn %>>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input name="search_key" type="text" style="width:125px;" value= "<%= @search_key %>" ></input>
+
+        <button type="submit">検索</button>
+
+
+<% end %>
+        <ul class="container">
+        <% @search_items.each do |item| %>
+
+            <li class="item">
+                <!-- デバグ:22044 -->
+                <p class="image">
+                    <a href="/item/<%= item.mpn %>/detail">
+                        <img src="/assets/img/<%= item.item_image %>" width="130" height="130" alt="" />
+                    </a>
+                </p>
+                <p class="name">
+                    <a href="/item/<%= item.mpn %>/detail"><%= item.item_name %></a>
+                </p>
+                <p class="price"><%= item.list_price %>円（税込)</p>
+            </li>
+
+        <%  end %>
+        </ul>
+    </div>
+
+
+</footer>

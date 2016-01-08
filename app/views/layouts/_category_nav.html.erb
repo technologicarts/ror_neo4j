@@ -1,0 +1,10 @@
+<nav class="category-nav">
+    <ul class="container">
+
+    <% @category_menus.each do |category_menu| %>
+        <li class="item"><a href="/category/<%= category_menu.category_id %>"><%=raw category_menu.category_name %></a>
+        </li>
+    <% end %>
+
+    </ul>
+</nav>

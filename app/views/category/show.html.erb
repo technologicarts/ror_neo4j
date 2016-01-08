@@ -1,0 +1,94 @@
+<%= provide(:title, raw( @categories.last.category_name.gsub('<br/>',''))) %>
+<nav id="breadcrumb">
+    <div class="item first" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a href="/">
+            <span class="title" itemprop="title">ホーム</span>
+        </a>
+    </div>
+
+    <div class="item" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+
+    	<% @category_href = "/category" %>
+    	<% if !@categories.empty? %>
+	    	<% @categories[0...-1].each do |cat|%>
+	    		<% @category_href += "/" + cat.category_id.to_s %>
+	    		&nbsp;&gt;&nbsp;<a href="<%= @category_href %>"> <%=raw cat.category_name.gsub('<br/>','') %> </a>
+	    	<% end %>
+
+	    	&nbsp;&gt;&nbsp;
+        	<span class="title" itemprop="title"><%=raw @categories.last.category_name.gsub('<br/>','') %></span>
+
+
+    	<% end %>
+    </div>
+
+   <!--  <div class="item" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        &nbsp;&gt;&nbsp;<a href="/category/ladies/28/">ブラウス・シャツ</a>
+    </div>
+
+    <div class="item" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        &nbsp;&gt;&nbsp;<a href="/category/ladies/28/330/">半袖・ノースリーブ</a>
+    </div> -->
+
+
+</nav>
+<section>
+	<div class="section-wrapper">
+		<!-- ■コンテンツエリア -->
+		<div id="contents" class="" style="width:960px">
+
+			<input type="hidden" name="h" value="">
+
+				<!-- ■アイテム一覧 -->
+				<div id="ItemListNew">
+
+					<ul class="item-list-type1">
+
+					<% @items.each do |item| %>
+					<li>
+						<div class="item-box" style="height: 333px;">
+							<p class="item-photo">
+								<a href="/item/<%= item.mpn %>/detail">
+								<%= image_tag "img/" << item.item_image, width:"173", height:"173", alt:""%>
+								</a>
+							</p>
+
+							<div class="item-info">
+								<p class="item-icon">
+									<span class="icon-new">New</span>
+								</p>
+								
+								<p class="item-name">
+									<a href="/item/<%= item.mpn %>/detail">>
+									<%= item.item_name %>
+									</a>
+								</p>
+								
+								<p class="item-price">
+									<%= item.list_price %>円(税込)
+								</p>
+								
+								<p class="item-price2"><small></small></p>
+								
+								<p class="item-stars">
+									<%= image_tag "icon/star_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_grey_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_grey_icon.png",width:"13", height:"12" %>
+								</p>
+								
+								<p class="item-review">
+									<%= image_tag "icon/icon_favorite.png",width:"14", height:"12" %>
+								</p>
+							</div>
+						</div>
+					</li>
+
+					<% end %>
+					</ul>
+			</div>
+		</div>
+	</div>
+</section>
+	

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mpn: MyString
+  detailed_item_info: MyString
+  item_info: MyString
+  qty: 1
+  item_size: 1
+  color: MyString
+  list_price: 1
+  item_name: MyString
+  item_image: MyString
+
+two:
+  mpn: MyString
+  detailed_item_info: MyString
+  item_info: MyString
+  qty: 1
+  item_size: 1
+  color: MyString
+  list_price: 1
+  item_name: MyString
+  item_image: MyString

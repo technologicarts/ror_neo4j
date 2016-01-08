@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+  <!-- <title>TA-ShoppingSite</title> -->
+  <title> <%= yield(:title) %> </title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body id="detail" class="home">
+<div id="fb-root"></div>
+<div id="wrapper">
+<header>
+
+    <div class="container">
+        
+        <%= render 'layouts/top_header' %>
+        <%= render 'layouts/category_nav' if !@category_menus.nil?%>
+        
+    </div>
+
+</header>
+<%= yield %>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<!-- 
+<%= debug(@item_features) if Rails.env.development? %>
+ -->
+</div>
+</body>
+</html>

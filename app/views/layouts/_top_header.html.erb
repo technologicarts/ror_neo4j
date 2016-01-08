@@ -1,0 +1,69 @@
+<div class="site-unit">
+</div>
+
+<div class="shopping-unit">
+    <nav class="site-nav">
+    </nav>
+
+    <div class="cart-unit">
+        <a href="/cart/view" class="in-cart">
+            <div class="btn-blue-cart">
+                <div class="check-cart">
+                    <span>カートをみる</span>
+                    <div class="btn-white-micro">  
+                    <% 
+                        review_cart = session["review_cart"] 
+                        if review_cart.nil?
+                            review_total_qty = 0
+                            review_total_price = 0
+                        else
+                            review_total_qty = review_cart['total_qty']
+                            review_total_price = review_cart['total_price']
+                        end
+                    %>
+
+                        <p class="item-count"> <%= review_total_qty.to_i %>点</p>
+                        <p class="item-price">合計
+                            <span class="price">&yen;<%= review_total_price.to_i %></span>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <nav class="shopping-nav">
+        <ul class="container">
+            <li class="item register"><a href="/create_user">新規会員登録</a>
+            </li>
+            <li class="item favorite"><a href="/favorite/view">お気に入り</a>
+            </li>
+            <li class="item history"><a href="/cart/purchase">購入履歴</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="status">
+        <div class="login-unit">
+            <p class="greeting">こんにちは
+                <span class="login-name">
+                <%if @user.nil? %>
+                        ゲスト
+                    <% else %>
+                        <%= @user.email %>
+                    <% end %>
+                </span>さま</p>
+            <!-- <a href="#">
+                <p class="btn-pink-micro">ログイン</p>
+            </a> -->
+
+        <% if spree_current_user %>
+            <%= link_to raw("<p class='btn-pink-micro'>ログアウト</p>"), spree_logout_path, :method => :delete %>
+        <% else %>
+            <%= link_to raw("<p class='btn-pink-micro'>ログイン</p>"), spree_login_path %>
+        <% end %>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<section>
+	<div class="section-wrapper">
+		<!-- ■コンテンツエリア -->
+		<div id="contents" class="" style="width:960px">
+
+			<input type="hidden" name="h" value="">
+
+				<!-- ■アイテム一覧 -->
+				<div id="ItemListNew">
+
+					<ul class="item-list-type1">
+
+					<% @items.each do |ite| %>
+					<li>
+						<div class="item-box" style="height: 333px;">
+							<p class="item-photo">
+								<a href="./item/<%= ite.mpn %>/detail">
+								<%= image_tag "img/" << ite.item_image, width:"173", height:"173", alt:""%>
+								</a>
+							</p>
+
+							<div class="item-info">
+								<p class="item-icon">
+									<span class="icon-new">New</span>
+								</p>
+								
+								<p class="item-name">
+									<a href="./item/<%= ite.mpn %>/detail">>
+									<%= ite.item_name %>
+									</a>
+								</p>
+								
+								<p class="item-price">
+									<%= ite.list_price %>円(税込)
+								</p>
+								
+								<p class="item-price2"><small></small></p>
+								
+								<p class="item-stars">
+									<%= image_tag "icon/star_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_grey_icon.png",width:"13", height:"12" %>
+									<%= image_tag "icon/star_grey_icon.png",width:"13", height:"12" %>
+								</p>
+								
+								<p class="item-review">
+									<%= image_tag "icon/icon_favorite.png",width:"14", height:"12" %>
+								</p>
+							</div>
+						</div>
+					</li>
+
+					<% end %>
+					</ul>
+			</div>
+		</div>
+	</div>
+</section>
+	

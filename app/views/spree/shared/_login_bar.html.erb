@@ -1,0 +1,16 @@
+<% if spree_current_user %>
+<li>one</li>
+  <li>
+    <%= link_to Spree.t(:logout), spree_logout_path, :method => :delete %>
+  </li>
+<% else %>
+  <li>
+    <a href="/item/RW-1879/detail">ItemPage</a>
+  </li>
+  <li>
+    <%= link_to Spree.t(:login), spree_login_path %>
+  </li>
+  <li>
+    <%= link_to Spree.t(:signup), spree_signup_path %>
+  </li>
+<% end %>
